@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Filmes - Async/Await</title>
+    <link rel="stylesheet" href="Estilo03.css">
+</head>
+<body>
+     <center><h1>Exemplo usando aync / wait</h1></center>
+
+    <h3> Conceito:</h3>
+
+    <p>ASYNC/AWAIT é a forma mais moderna e legível de lidar com códigos assíncronos, construída sobre o conceito de promises,
+    funciona da seguinte forma: async torna uma função assíncrona, colocando async na frente de uma função você pode usar await dentro dela
+    e essa função sempre retorna uma promise, await espera a promise terminar, pausa a execução da função até o valor estar pronto
+    e depois continua normalmente, por fim pega o resultado com JSON e mostra no console</p>
+
+    <h3>Segue a baixo o exemplo em codigo:</h3>
+
+    <h3><br><center>Consulta filmes em cartaz</center></br></h3>
+    
+    <p>Nesse codigo a abaixo eu criei um sistema que mostra os filmes em cartaz,
+     usando async/wait.</p>
+
+    <h1>Catálogo de Filmes</h1>
+
+    <h3>Buscar filmes</h3>
+
+    <div style="text-align: center;">
+        <button onclick="buscarFilmes()">Buscar Filmes</button>
+    </div>
+
+    <div id="resultado"></div>
+
+    <script>
+        async function buscarFilmes() {
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = 'Carregando...';
+
+            try {
+                const resposta = await fetch('filmes.json');
+
+                if (!resposta.ok) {
+                    throw new Error('Erro ao carregar o catálogo de filmes.');
+                }
+
+                const filmes = await resposta.json();
+                resultado.innerHTML = '';
+
+                filmes.forEach(filme => {
+                    const div = document.createElement('div');
+                    div.className = 'filme';
+                    div.innerHTML = `
+                        <strong>Título:</strong> ${filme.titulo}<br>
+                        <strong>Ano:</strong> ${filme.ano}<br><br>
+                    `;
+                    resultado.appendChild(div);
+                });
+
+            } catch (erro) {
+                console.error('Erro:', erro);
+                resultado.innerHTML = 'Erro ao buscar os filmes.';
+            }
+        }
+    </script>
+
+</body>
+</html>

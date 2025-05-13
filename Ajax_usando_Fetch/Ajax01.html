@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax usando fetch</title>
+    <link rel="stylesheet" href="estilo.css"
+</head>
+<body>
+
+    <center><h1>Exemplo usando fetch</h1></center>
+
+    <h3> Conceito:</h3>
+
+    <p>Fetch tambem é uma API que realiza requisições HTTP de forma assícrona, é considerada mais moderna, fácil e usa promises,
+    funciona da seguinte forma: recebe a URL da informação a ser buscada e retorna uma promise, a promise retornada por fetch
+    pode ser resolvida ou rejeitada,você pode usar then ou async/await para processar a resposta da requisição e depois
+    acessar os dados da resposta como por exemplo, um json.</p>
+
+    <h3>Segue a baixo o exemplo em codigo:</h3>
+
+    <h3><br><center>Consulta de Usuário</center></br></h3>
+    
+    <p>Nesse codigo a abaixo eu criei um sistema que puxa os usuarios do json 
+       e os mostra na tela e com o uso do fetch, os usuarios são os integrante do grupo.</p>
+
+    <h4>Lista de Usuários:</h4>
+    <button onclick="buscarUsuarios()">Buscar usuários</button>
+    <div id="resultado"></div>
+
+<script>
+    function buscarUsuarios() {
+        fetch('Usuarios.json')
+        .then(resposta => {
+            if (!resposta.ok) {
+                throw new Error('Houve algum problema');
+        }
+        return resposta.json();
+        })
+        .then(dados => {
+            const resultado = document.getElementById('resultado');
+            resultado.innerHtml = '';
+            
+            dados.forEach(usuario => {
+                const div = document.createElement('div');
+                div.innerHTML =
+            
+                `<strong>Nome:</strong> ${usuario.Nome}<br>
+                <strong>email:</strong> ${usuario.email}<br></br>
+                `;
+            resultado.appendChild(div);
+    
+            });
+        })
+        .catch(erro => {
+            console.error('Erro:', erro);
+            document.getElementById('resultado').innerHTML ='Erro ao buscar os usuários.';
+        });
+    }
+
+</script>
+
+</body>
+</html>
