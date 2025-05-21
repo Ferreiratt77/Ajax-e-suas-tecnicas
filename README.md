@@ -16,3 +16,5 @@ ASYNC/AWAIT é a forma mais moderna e legível de lidar com códigos assíncrono
 funciona da seguinte forma: async torna uma função assíncrona, colocando async na frente de uma função você pode usar await dentro dela
 e essa função sempre retorna uma promise, await espera a promise terminar, pausa a execução da função até o valor estar pronto
 e depois continua normalmente, por fim pega o resultado com JSON e mostra no console
+
+Alunos: Gabriel Ferreira, Gabriel Republica, Ana Julia França, Clara Beatriz, Jeronimo.
